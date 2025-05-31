@@ -856,7 +856,11 @@ function fnvalidate() {
 }
 
 $('#sell_login_name').on('change', function() {
+
    var sell_login_name = $('#sell_login_name').val();
+
+   alert(sell_login_name)
+   consol.log(sell_login_name)
 
     $.ajax({
         url: 'includes/api/unique_data.php',

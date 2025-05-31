@@ -9,6 +9,9 @@
 // require_once("includes/common/functions.php"); 
 
 
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL); 
 
 require_once(__DIR__ . "/dbconnect.php");
 require_once(__DIR__ . "/definitions.php");

@@ -49,7 +49,7 @@
 			
 			$_SESSION['_msg']="";
 			$_SESSION['_msg_err']="";			
-			header("location:home.php");	
+			header("location:home.php");
 			die();
 		}
 		else
@@ -122,7 +122,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-label-group position-relative has-icon-left">
-                                                        <input type="password" class="form-control" id="user-password" name="txtUserPwd" placeholder="Password" value="admin@123" required>
+                                                        <input type="password" class="form-control" id="user-password" name="txtUserPwd" placeholder="Password" value="Munusamy@7019" required>
                                                         <div class="form-control-position">
                                                             <i class="feather icon-lock"></i>
                                                         </div>

@@ -1,5 +1,6 @@
 <?php
-	$conn = new dbconnect();		
+	$conn = new dbconnect();	
+		
 	$sql ="SELECT * FROM mst_application";
 	$res = $conn->query($sql);	
 	$rs_CRM = $res->fetch(PDO::FETCH_OBJ);

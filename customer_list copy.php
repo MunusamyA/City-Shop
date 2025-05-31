@@ -30,29 +30,10 @@
 <head>
 	<title><?php echo PAGE_TITLE; ?> - Home</title>
 	<?php include_once("includes/common/css-js.php"); ?>
-    <style>
-        #example1 tbody tr {
-    cursor: pointer;
-}
-#example1 tbody tr:hover td:first-child {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
-#example1 tbody tr:hover td:last-child {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-#example1 tbody tr:hover td {
-    background-color: #b8c2cc;
-}
-    </style>
 </head>
 
 <body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 	<?php include_once("includes/common/header.php"); ?>	
-    
 
 <!-- [ Main Content ] start -->
     <div class="app-content content">
@@ -102,20 +83,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="box box-solid search" >
-                        <!-- <div class="box-body"> -->
-                            <div class="row">
-                                
-                                <div class="col-md-4">
-                                <input type="text" class="form-control" id="searchByCustomerName" name="searchByCustomerName" placeholder="Search Customer..." value="">
-                                </div>
 
-                            </div>
-                        <!-- </div> -->
-                    </div>
                     <!-- DataTable starts -->
                     <div class="table-responsive">
-                        <table id="example1" class="table data-list-view">
+                        <table class="table data-list-view">
                             <thead>
                                 <tr>
                                     <th>SI.No.</th>
@@ -124,15 +95,35 @@
                                     <th>Email</th>
                                     <th>Date of Birth</th>
                                     <th>Gender</th>
-                                    <!-- <th>ACTION</th> -->
+                                    <th>ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php
+                                    $sql = "SELECT * FROM tbl_customer WHERE rec_del_status = 0";
+                                    $res = $conn->query($sql);
+                                    $sno = 1;
+                                    while($obj = $res->fetch(PDO::FETCH_OBJ))  {
+                                        echo'
+                                            <tr>
+                                                <td>'.$sno.'</td>
+                                                <td>'.$obj->cus_first_name." ".$obj->cust_last_name.'</td>
+                                                <td>'.$obj->cus_mob_num.'</td>
+                                                <td>'.$obj->cus_email.'</td>
+                                                <td>'.$obj->cus_dob.'</td>   
+                                                <td>'.$obj->cus_gender.'</td>
+                                                <td>#</td>
+                                            </tr>
+                                        ';
+                                        $sno++;
+                                    }
+
+                                ?>
+                                
                                 
                             </tbody>
                         </table>
                     </div>
-
                     <!-- DataTable ends -->
 
                     <!-- add new sidebar starts -->
@@ -150,7 +141,6 @@
   <?php include_once("includes/common/footer-css-js.php"); ?>
 
 </body>
-    
 <script>
 
 	<?php
@@ -164,114 +154,6 @@
 
     ?>
     $('#txtUserName').focus();
-
-    $(function () {
-    var dataTable = $('#example1').DataTable({
-    //$('#example1').DataTable({
-        'autoWidth'     : false,
-        'responsive'    : true,
-        'processing'    : true,
-        'serverSide'    : true,
-        'pageLength'    : 10,
-        'searching'     : false,
-        //'scrollY'       : '570px',
-        //'scrollCollapse': true,
-        //'dom'           : 'Bfrtip',
-        'dom'           : "<'row'<'col-sm-12 d-flex col-md-6'lf>"
-                            +
-                            "<'col-sm-12 col-md-6 text-right'B>"
-                            +
-                            ">" 
-                            +
-                            "<'row'<'col-sm-12'tr>>"
-                             +
-                            "<'row m-2'<'col-sm-12 col-md-5'i>"
-                            +
-                            "<'col-sm-12 col-md-7'p>"
-                            +
-                            ">",
-        
-        
-        'ajax'          : {
-            'url':'datatables/customer_list.php',
-            'type':'POST',
-            'data': function(data){
-                //alert(data);
-                var searchByCustomerName = $('#searchByCustomerName').val();
-
-                data.searchByCustomerName = searchByCustomerName;
-            }
-        },
-        
-        'columns'       : [
-            { data: 'id' },
-            { data: 'cus_first_name' },
-            { data: 'cus_mob_num' },
-            { data: 'cus_email' },
-            { data: 'cus_dob' },
-            { data: 'cus_gender' },
-            // { data: 'action' },
-        ],
-        
-        'order'         : [[ 1, "desc" ]],  // List Records in Descending Order
-        
-        // columnDefs      : [
-        //     {
-        //         targets: [0,1,2,4,6],
-        //         className: 'text-center'
-        //     },
-        //     {
-        //         targets: [5],
-        //         className: 'text-right'
-        //     },
-        //     { 
-        //         orderable: true, 
-        //         className: 'reorder', 
-        //         targets: [1,2,3,4,5],
-        //         className: 'text-right'
-        //     },
-        //     { 
-        //         orderable: false, 
-        //         targets: '_all' 
-        //     }],
-        columnDefs: [
-    {
-        targets: [0,1,2,4],
-     
-    },
-    {
-        targets: [1,2,3,4,5],
-        orderable: true,
-    },
-    { 
-        orderable: false, 
-        targets: '_all' 
-    }
-],
-'rowCallback': function(row, data) {
-        $(row).attr('data-href', 'customer_view.php?id=' + data.id);    
-    },
-
-
-        buttons         : ['copyHtml5','excelHtml5','csvHtml5','pdfHtml5','print']
-    });
-
-    // $('#searchByCustomerName').change(function(){  
-    //     dataTable.draw();
-    // });
-    $(document).on('keyup','#searchByCustomerName', function() {
-        dataTable.draw();
-    });
-    $(document).on('click', '#example1 tbody tr', function () {
-        const url = $(this).data('href');
-        if (url) {
-            window.location.href = url;
-        }
-    });
-//     $(document).on('keyup', '#searchByCustomerName', function() {
-//     dataTable.search(this.value).draw();
-// });
-});
 </script>
 
 

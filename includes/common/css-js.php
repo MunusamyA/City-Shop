@@ -42,6 +42,7 @@
 
    <!-- BEGIN: Custom CSS-->
    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+   <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/tables/datatable/datatables.min.css">
 
 <noscript>
    <h6>JavaScript must be enabled in order for you to view this page. However, it seems JavaScript is either disabled or not supported by your browser. 
